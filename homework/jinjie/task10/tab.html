@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tab切换效果</title>
+        <style>
+            ul{
+                margin: 0;
+                padding: 0;
+            }
+            li{
+                list-style: none;
+            }
+            .clearfix:after{
+                content: '';
+                display: block;
+                clear: both;
+            }
+            #tab-box{
+                width: 600px;
+                height: 200px;
+                border: 1px solid #8b8989;
+            }
+            .tab-header>li{
+                float: left;
+                width: 200px;
+                height: 30px;
+                box-sizing: border-box;
+                border-right: 1px solid #8b8989;
+                border-bottom: 1px solid #8b8989;
+                text-align: center;
+                line-height: 30px;
+                cursor: pointer;
+            }
+            .tab-header>li:last-child{
+                border-right: none;
+            }
+            .header-active{
+                background-color: #d0cece;
+            }
+            .tab-content{
+                padding: 20px;
+            }
+            .tab-content>li{
+                display: none;
+            }
+            .tab-content .content-active{
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="tab-box">
+            <ul class="tab-header clearfix">
+                <li class="header-active">tab1</li>
+                <li>tab2</li>
+                <li>tab3</li>
+            </ul>
+            <ul class="tab-content">
+                <li class="content-active">内容1</li>
+                <li>内容2</li>
+                <li>内容3</li>
+            </ul>
+            <script>
+                var header = document.querySelector('.tab-header');
+                var headers = document.querySelectorAll('.tab-header>li');
+                var contents = document.querySelectorAll('.tab-content>li');
+
+                //事件代理
+                header.addEventListener('click', function(e){
+                    if(e.target.tagName.toLowerCase() === 'li'){
+                        for(var i = 0; i < headers.length; i++){
+                            headers[i].classList.remove('header-active');
+                        }
+                        e.target.classList.add('header-active');
+
+                        //获取目标元素索引
+                        var index = [].indexOf.call(headers, e.target);
+                        for(var i = 0; i < contents.length; i++){
+                            contents[i].classList.remove('content-active');
+                        }
+                        contents[index].classList.add('content-active');
+                    }
+                })
+            </script>
+        </div>
+    </body>
+</html>

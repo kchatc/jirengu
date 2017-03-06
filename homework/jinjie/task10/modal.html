@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>模态框</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .modal-box{
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background-color: rgba(0,0,0,0.2);
+            }
+            .modal-pannel{
+                width: 600px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+            }
+            .modal-pannel>.caption{
+                width: 100%;
+                height: 60px;
+                background-color: #009688;
+                color: #fff;
+                position: relative;
+            }
+            .modal-pannel>.caption>h2{
+                line-height: 60px;
+                padding-left: 16px;
+            }
+            .modal-pannel>.caption>.close{
+                position: absolute;
+                right: 16px;
+                top: 20px;
+                cursor: pointer;
+            }
+            .modal-pannel>main{
+                padding: 16px;
+            }
+            .modal-pannel>main>p{
+                line-height: 1.5;
+            }
+            .modal-pannel>footer{
+                text-align: right;
+                padding: 20px;
+            }
+            .modal-pannel>footer>span{
+                margin-left: 20px;
+                cursor: pointer;
+            }
+            .active{
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <!--点击模态框不隐藏，点击关闭以及模态框以外的区域模态框隐藏-->
+        <button id="btn">点我</button>
+        <div class="modal-box">
+            <div class="modal-pannel">
+                <header class="caption">
+                    <h2>我是模态框</h2>
+                    <span class="close">×</span>
+                </header>
+                <main>
+	                <p>我是内容1</p>
+	                <p>我是内容2</p>
+                </main>
+                <footer>
+                    <span id="btnCancel">取消</span><span id="btnOK">确定</span>
+                </footer>
+            </div>
+        </div>
+        <script>
+            var btn = document.getElementById('btn');
+            var modal = document.querySelector('.modal-box');
+            var pannel = document.querySelector('.modal-pannel');
+
+            //显示模态框
+            btn.addEventListener('click', function(){
+                modal.classList.add('active');
+            })
+            //点击关闭按钮关闭模态框
+            pannel.addEventListener('click', function(e){
+                if(e.target.className.toLowerCase() === 'close'){
+                    modal.classList.remove('active');
+                }else{
+                    e.stopPropagation();//阻止冒泡
+                }
+            })
+            //利用关闭按钮事件冒泡在非模态框区域点击关闭
+            modal.addEventListener('click', function(){
+                this.classList.remove('active');
+            })
+        </script>
+    </body>
+</html>
